@@ -6,18 +6,10 @@
 
     <fragment
         android:id="@+id/breakingNewsFragment"
-        android:name="ru.vlasov.newsapp.presentation.fragments.BreakingNewsFragment"
+        android:name="ru.vlasov.newsapp.presentation.breakingnews.BreakingNewsFragment"
         android:label="BreakingNewsFragment" >
         <action
             android:id="@+id/action_breakingNewsFragment_to_articleFragment"
-            app:destination="@id/articleFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/savedNewsFragment"
-        android:name="ru.vlasov.newsapp.presentation.fragments.SavedNewsFragment"
-        android:label="SavedNewsFragment" >
-        <action
-            android:id="@+id/action_savedNewsFragment_to_articleFragment"
             app:destination="@id/articleFragment" />
     </fragment>
     <fragment
@@ -26,6 +18,14 @@
         android:label="SearchNewsFragment" >
         <action
             android:id="@+id/action_searchNewsFragment_to_articleFragment"
+            app:destination="@id/articleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/savedNewsFragment"
+        android:name="ru.vlasov.newsapp.presentation.fragments.SavedNewsFragment"
+        android:label="SavedNewsFragment">
+        <action
+            android:id="@+id/action_savedNewsFragment_to_articleFragment"
             app:destination="@id/articleFragment" />
     </fragment>
     <fragment
