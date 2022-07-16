@@ -2,6 +2,8 @@ package ru.vlasov.newsapp.data.repository
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
+import ru.vlasov.newsapp.data.local.NewsArticleDao
 import ru.vlasov.newsapp.data.mapper.NewsMapper
 import ru.vlasov.newsapp.data.remote.NewsApi
 import ru.vlasov.newsapp.domain.NewsArticle
@@ -13,13 +15,14 @@ import javax.inject.Inject
 
 class NewsRepositoryImpl @Inject constructor(
     private val api: NewsApi,
+    private val dao: NewsArticleDao,
     private val mapper: NewsMapper
 ): NewsRepository {
 
     override suspend fun getBreakingNews(
         countryCode: String,
         pageNumber: Int
-    ): Flow<Resource<NewsResponse>?> {
+    ): Flow<Resource<NewsResponse>> {
         return flow {
             emit(Resource.Loading())
             try {
@@ -38,15 +41,17 @@ class NewsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun saveArticle(newsArticle: NewsArticle) {
-        TODO("Not yet implemented")
+        dao.saveArticle(mapper.mapNewsArticleToNewsArticleDbModel(newsArticle))
     }
 
-    override fun getSavedNews(): Flow<NewsResponse> {
-        TODO("Not yet implemented")
+    override fun getSavedNews(): Flow<List<NewsArticle>> {
+        return dao.getSavedNews().map {
+            mapper.mapListNewsArticleDbModelToListNewsArticle(it)
+        }
     }
 
     override suspend fun deleteArticle(newsArticle: NewsArticle) {
-        TODO("Not yet implemented")
+        dao.deleteArticle(mapper.mapNewsArticleToNewsArticleDbModel(newsArticle))
     }
 
 

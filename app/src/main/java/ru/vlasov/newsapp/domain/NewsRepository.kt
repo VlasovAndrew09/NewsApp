@@ -6,7 +6,7 @@ import ru.vlasov.newsapp.domain.util.Resource
 
 interface NewsRepository {
 
-    suspend fun getBreakingNews(countryCode: String, pageNumber: Int): Flow<Resource<NewsResponse>?>
+    suspend fun getBreakingNews(countryCode: String, pageNumber: Int): Flow<Resource<NewsResponse>>
 
     suspend fun searchNews(searchQuery: String, pageNumber: Int): Flow<Resource<NewsResponse>>
 
