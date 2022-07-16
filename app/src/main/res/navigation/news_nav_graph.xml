@@ -9,27 +9,31 @@
         android:name="ru.vlasov.newsapp.presentation.breakingnews.BreakingNewsFragment"
         android:label="BreakingNewsFragment" >
         <action
-            android:id="@+id/action_breakingNewsFragment_to_articleFragment"
+            android:id="@+id/action_breakingNewsFragment_to_newsArticleFragment"
             app:destination="@id/articleFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchNewsFragment"
-        android:name="ru.vlasov.newsapp.presentation.fragments.SearchNewsFragment"
+        android:name="ru.vlasov.newsapp.presentation.searchnews.SearchNewsFragment"
         android:label="SearchNewsFragment" >
         <action
-            android:id="@+id/action_searchNewsFragment_to_articleFragment"
+            android:id="@+id/action_searchNewsFragment_to_newsArticleFragment"
             app:destination="@id/articleFragment" />
     </fragment>
     <fragment
         android:id="@+id/savedNewsFragment"
-        android:name="ru.vlasov.newsapp.presentation.fragments.SavedNewsFragment"
+        android:name="ru.vlasov.newsapp.presentation.savednews.SavedNewsFragment"
         android:label="SavedNewsFragment">
         <action
-            android:id="@+id/action_savedNewsFragment_to_articleFragment"
+            android:id="@+id/action_savedNewsFragment_to_newsArticleFragment"
             app:destination="@id/articleFragment" />
     </fragment>
     <fragment
         android:id="@+id/articleFragment"
-        android:name="ru.vlasov.newsapp.presentation.fragments.ArticleFragment"
-        android:label="ArticleFragment" />
+        android:name="ru.vlasov.newsapp.presentation.newsarticle.NewsArticleFragment"
+        android:label="NewsArticleFragment" >
+        <argument
+            android:name="newsArticle"
+            app:argType="ru.vlasov.newsapp.domain.NewsArticle" />
+    </fragment>
 </navigation>

@@ -12,7 +12,7 @@ interface NewsRepository {
 
     suspend fun saveArticle(newsArticle: NewsArticle)
 
-    fun getSavedNews(): Flow<NewsResponse>
+    fun getSavedNews(): Flow<List<NewsArticle>>
 
     suspend fun deleteArticle(newsArticle: NewsArticle)
 }

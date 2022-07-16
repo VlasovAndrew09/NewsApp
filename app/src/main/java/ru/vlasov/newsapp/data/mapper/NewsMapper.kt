@@ -1,5 +1,6 @@
 package ru.vlasov.newsapp.data.mapper
 
+import ru.vlasov.newsapp.data.local.NewsArticleDbModel
 import ru.vlasov.newsapp.data.remote.model.NewsArticleDto
 import ru.vlasov.newsapp.data.remote.model.NewsResponseDto
 import ru.vlasov.newsapp.domain.NewsArticle
@@ -9,9 +10,8 @@ import javax.inject.Inject
 
 class NewsMapper @Inject constructor() {
 
-    fun mapArticleDtoToArticleEntity(newsArticleDto: NewsArticleDto) = NewsArticle(
+    fun mapNewsArticleDtoToNewsArticle(newsArticleDto: NewsArticleDto) = NewsArticle(
         author = newsArticleDto.author,
-        content = newsArticleDto.content,
         description = newsArticleDto.description,
         publishedAt = newsArticleDto.publishedAt,
         source = newsArticleDto.source?.name,
@@ -22,7 +22,31 @@ class NewsMapper @Inject constructor() {
 
     fun mapNewsResponseDtoToNewsResponse(newsResponseDto: NewsResponseDto): NewsResponse {
         return newsResponseDto.newsArticles?.map {
-            mapArticleDtoToArticleEntity(it)
+            mapNewsArticleDtoToNewsArticle(it)
         }?.let { NewsResponse(it) } ?: NewsResponse(listOf())
+    }
+
+    fun mapNewsArticleToNewsArticleDbModel(newsArticle: NewsArticle) = NewsArticleDbModel (
+        author = newsArticle.author,
+        description = newsArticle.description,
+        publishedAt = newsArticle.publishedAt,
+        source = newsArticle.source,
+        title = newsArticle.title,
+        url = newsArticle.url,
+        urlToImage = newsArticle.urlToImage
+    )
+
+    fun mapNewsArticleDbModelToNewsArticle(newsArticleDbModel: NewsArticleDbModel) = NewsArticle (
+        author = newsArticleDbModel.author,
+        description = newsArticleDbModel.description,
+        publishedAt = newsArticleDbModel.publishedAt,
+        source = newsArticleDbModel.source,
+        title = newsArticleDbModel.title,
+        url = newsArticleDbModel.url,
+        urlToImage = newsArticleDbModel.urlToImage
+    )
+
+    fun mapListNewsArticleDbModelToListNewsArticle(list: List<NewsArticleDbModel>) = list.map {
+        mapNewsArticleDbModelToNewsArticle(it)
     }
 }
