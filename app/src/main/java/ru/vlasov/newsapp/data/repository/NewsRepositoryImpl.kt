@@ -37,7 +37,17 @@ class NewsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun searchNews(searchQuery: String, pageNumber: Int): Flow<Resource<NewsResponse>> {
-        TODO("Not yet implemented")
+        return flow {
+            emit(Resource.Loading())
+            try {
+                val result = api.searchForNews(searchQuery)
+                emit(Resource.Success(mapper.mapNewsResponseDtoToNewsResponse(result)))
+            } catch (e: UnknownHostException) {
+                emit(Resource.Error( "Отсутствует интернет-соединение", null))
+            } catch (e: Throwable) {
+                emit(Resource.Error( "Упс! Что-то пошло не так", null))
+            }
+        }
     }
 
     override suspend fun saveArticle(newsArticle: NewsArticle) {
